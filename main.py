@@ -1,8 +1,14 @@
+import pygame
 from pygame.locals import *
 from OpenGL.GLU import *
 from Cube import *
 from LoadMesh import *
 from Camera import *
+import os
+
+x = 850
+y = 200
+os.environ['SDL_VIDEO_WIDNOW_POS'] = "%d,%d" % (x,y)
 pygame.init()
 
 # project settings
@@ -13,8 +19,9 @@ drawing_color = (1, 1, 1, 1)
 
 screen = pygame.display.set_mode((screen_width, screen_height), DOUBLEBUF | OPENGL)
 pygame.display.set_caption('Transformations in Python')
-cube = Cube(GL_LINE_LOOP)
-mesh = LoadMesh("Cube.obj", GL_LINE_LOOP)
+cube = Cube(GL_LINE_LOOP, position=pygame.Vector3(2,0,0),rotation=Rotation(45,pygame.Vector3(0,1,0)), scale=pygame.Vector3(0.5,0.5,0.5))
+cube2 = Cube(GL_LINE_LOOP, position=pygame.Vector3(2,0,0),rotation=Rotation(45,pygame.Vector3(0,1,0)), scale=pygame.Vector3(2,2,2))
+mesh = LoadMesh("donut.obj", GL_LINE_LOOP)
 camera = Camera()
 
 def initialise():
@@ -83,14 +90,13 @@ def display():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     init_camera()
     draw_world_axes()
-    glPushMatrix()
-
-    # glTranslated(0,1,-5)
-    # glRotated(45, 1, 1, 0)
-    # glScalef(0.5,0.5, 0.5)
-    mesh.draw()
-    glPopMatrix()
-
+    #
+    glRotated(45, 0, 0, 1)
+    cube.draw()
+    cube2.draw()
+    # glScalef(0.5, 0.5, 0.5)
+    # cube.draw()
+    #
 
 done = False
 initialise()

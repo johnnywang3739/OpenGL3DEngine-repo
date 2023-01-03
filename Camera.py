@@ -49,9 +49,9 @@ class Camera:
         if keys[pygame.K_UP]:
             self.eye += self.forward*self.key_sensitivity
         if keys[pygame.K_RIGHT]:
-            self.eye -= self.right*self.key_sensitivity
-        if keys[pygame.K_LEFT]:
             self.eye += self.right*self.key_sensitivity
+        if keys[pygame.K_LEFT]:
+            self.eye -= self.right*self.key_sensitivity
 
         self.look = self.eye + self.forward
         gluLookAt(self.eye.x, self.eye.y, self.eye.z,
