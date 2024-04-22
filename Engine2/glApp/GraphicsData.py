@@ -18,6 +18,7 @@ class GraphicsData():
         glBindBuffer(GL_ARRAY_BUFFER, self.buffer_ref)
         if self.data_type == "vec3":
             glVertexAttribPointer(variable_id, 3, GL_FLOAT, False, 0, None)
-        glEnableVertexAttribArray(variable_id)
+        elif self.data_type == "vec2":
+            glVertexAttribPointer(variable_id, 2, GL_FLOAT, False, 0, None)
 
-        
+        glEnableVertexAttribArray(variable_id)

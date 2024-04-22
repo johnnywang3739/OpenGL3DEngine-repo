@@ -1,4 +1,13 @@
 from OpenGL.GL import *
+import numpy as np
+
+def format_vertices(coordinates, triangles):
+    allTriangles = []
+    for t in range(0, len(triangles), 3):
+        allTriangles.append(coordinates[triangles[t]])
+        allTriangles.append(coordinates[triangles[t+1]])
+        allTriangles.append(coordinates[triangles[t+2]])
+    return np.array(allTriangles, np.float32)
 
 def compile_shader(shader_type, shader_source):
     shader_id = glCreateShader(shader_type)
@@ -21,7 +30,7 @@ def create_program(vertex_shader_code, fragment_shader_code):
     glLinkProgram(program_id)
     link_success = glGetProgramiv(program_id, GL_LINK_STATUS)
     if not link_success:
-        info = glGetShaderInfoLog(program_id)
+        info = glGetProgramInfoLog(program_id)
         raise RuntimeError(info)
     glDeleteShader(vertex_shader_id)
     glDeleteShader(fragment_shader_id)
